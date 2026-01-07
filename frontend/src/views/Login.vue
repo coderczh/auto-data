@@ -1,10 +1,61 @@
 <template>
   <div class="login-container">
-    <div class="login">111</div>
+    <div class="login">
+      <el-form :model="loginForm" :rules="loginRules" label-width="auto">
+        <el-form-item label="账号：" prop="accountNo">
+          <el-input
+            v-model="loginForm.accountNo"
+            placeholder="请输入帐号"
+            style="width: 240px"
+            clearable
+          />
+        </el-form-item>
+        <br />
+        <el-form-item label="密码：" prop="password">
+          <el-input
+            v-model="loginForm.password"
+            type="password"
+            placeholder="请输入密码"
+            clearable
+            show-password
+          />
+        </el-form-item>
+        <div style="text-align: center">
+          <el-button type="primary" @click="onSubmit()" style="margin-right: 20px">登录</el-button>
+          <el-button>注册</el-button>
+        </div>
+      </el-form>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { reactive } from 'vue'
+
+const loginForm = reactive({
+  accountNo: '',
+  password: '',
+})
+
+const loginRules = reactive({
+  accountNo: [
+    {
+      required: true,
+      message: '请输入账号',
+      trigger: 'blur',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      message: '请输入密码',
+      trigger: 'blur',
+    },
+  ],
+})
+
+const onSubmit = () => {}
+</script>
 
 <style lang="scss" scoped>
 .login-container {
@@ -16,9 +67,14 @@
   background: url(@/static/image/login-bgd.svg);
 
   .login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 500px;
-    height: 500px;
+    height: 350px;
     border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 }
 </style>
